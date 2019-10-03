@@ -1,0 +1,3 @@
+rootProject.name = 'volt_app'
+
+include ':app'
