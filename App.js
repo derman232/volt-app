@@ -7,52 +7,46 @@
  */
 
 import React, {Component} from 'react';
-import { Dimensions } from "react-native";
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
-import {
-  ProgressChart,
-} from "react-native-chart-kit";
-const screenWidth = Dimensions.get("window").width;
-
+import PageHeader from './components/Header';
+import { Container, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
+import Dashboard from './views/Dashboard';
 type Props = {};
 export default class App extends Component<Props> {
+  state = {page:'apps'}
+
   render() {
     return (
       <Container>
-        <Header />
-        <ProgressChart
-          data={{
-            data: [0.4]
-          }}
-          width={screenWidth}
-          height={220}
-          chartConfig={{
-            backgroundColor: "#ffffff",
-            decimalPlaces: 2, // optional, defaults to 2dp
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16
-            }
-          }}
+        <PageHeader 
+          saved={67.43}
+          monthPoints={23}
         />
-
-        <Content />
+        <Content >
+          {this.state.page === 'apps' &&
+            <Dashboard
+              remaining={25}
+              total={40}
+              balance={135.25}
+              dueDate={'9 November 2019'}
+            />
+          }
+        </Content>
         <Footer>
           <FooterTab>
             <Button vertical active>
-              <Icon active name="apps" />
+              <Icon active name="apps" onPress={()=>{this.setState({page:'apps'})}} />
               <Text>Volt</Text>
             </Button>
             <Button vertical>
-              <Icon name="calendar" />
+              <Icon name="calendar" onPress={()=>{this.setState({page:'calendar'})}} />
               <Text>Limits</Text>
             </Button>
             <Button vertical>
-              <Icon name="cash" />
+              <Icon name="cash" onPress={()=>{this.setState({page:'cash'})}} />
               <Text>Pay</Text>
             </Button>
             <Button vertical>
-              <Icon name="settings" />
+              <Icon name="settings" onPress={()=>{this.setState({page:'settings'})}} />
               <Text>Settings</Text>
             </Button>
           </FooterTab>
